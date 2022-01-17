@@ -1,5 +1,7 @@
 package com.app.dao;
 
+import com.app.models.Recruiter;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -27,9 +29,9 @@ public class DAOFactory {
      * Méthode chargée de récupérer les informations de connexion à la base de
      * données, charger le driver JDBC et retourner une instance de la Factory
      */
-    public static DAOFactory getInstance() throws com.dao.DAOConfigurationException {
+    public static DAOFactory getInstance() throws com.app.dao.DAOConfigurationException {
         Properties properties = new Properties();
-        String url = "jdbc:mysql://localhost:3306/dao_db";
+        String url = "jdbc:mysql://localhost:3306/projects3_db";
         String driver = "com.mysql.jdbc.Driver";
         String user = "root";
         String password = "root";
@@ -39,7 +41,7 @@ public class DAOFactory {
             System.out.println(driver);
             Class.forName( driver );
         } catch ( ClassNotFoundException e ) {
-            throw new com.dao.DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
+            throw new com.app.dao.DAOConfigurationException( "Le driver est introuvable dans le classpath.", e );
         }
 
         DAOFactory instance = new DAOFactory( url, user, password );
@@ -51,11 +53,31 @@ public class DAOFactory {
         return DriverManager.getConnection( url, username, password );
     }
 
+    public static void releaseConnection(Connection con){
+        try {
+            con.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
     /*
      * Méthodes de récupération de l'implémentation des différents DAO (un seul
      * pour le moment)
      */
-    public PersonDAO getPersonDAO() {
-        return new PersonDaoImp(this );
+    public RecruiterDAO getRecruiterDAO() throws SQLException {
+        return new RecruiterDaoImp(this, this.getConnection());
     }
+    public CandidateDAO getCandidateDAO() throws SQLException {
+        return new CandidateDaoImp(this,this.getConnection());
+    }
+    public PostDAO getPostDAO() throws SQLException{
+        return new PostDaoImp(this,this.getConnection());
+    }
+
+    public CategoryDAO getCategoryDAO() throws SQLException{
+        return new CategoryDaoImp(this,this.getConnection());
+    }
+
 }

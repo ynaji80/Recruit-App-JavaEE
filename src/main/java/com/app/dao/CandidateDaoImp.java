@@ -1,6 +1,5 @@
 package com.app.dao;
 
-import com.app.extra.DatabaseConnection;
 import com.app.models.Candidate;
 import com.app.models.Recruiter;
 
@@ -15,9 +14,11 @@ public class CandidateDaoImp implements CandidateDAO {
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
+    private DAOFactory daoFactory;
 
-    public CandidateDaoImp() {
-        con = DatabaseConnection.getConnected();
+    public CandidateDaoImp(DAOFactory daoFactory, Connection con) {
+        this.daoFactory= daoFactory;
+        this.con= con;
     }
 
     @Override
@@ -105,5 +106,3 @@ public class CandidateDaoImp implements CandidateDAO {
         return -1;
     }
 }
-
-

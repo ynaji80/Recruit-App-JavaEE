@@ -1,6 +1,5 @@
 package com.app.dao;
 
-import com.app.extra.DatabaseConnection;
 import com.app.models.Recruiter;
 
 import java.sql.Connection;
@@ -15,9 +14,11 @@ public class RecruiterDaoImp implements RecruiterDAO{
     private PreparedStatement ps;
     private ResultSet rs;
     private String query;
+    private DAOFactory daoFactory;
 
-    public RecruiterDaoImp() {
-        con = DatabaseConnection.getConnected();
+    public RecruiterDaoImp(DAOFactory daoFactory, Connection con) {
+        this.daoFactory= daoFactory;
+        this.con= con;
     }
 
     @Override
@@ -94,7 +95,6 @@ public class RecruiterDaoImp implements RecruiterDAO{
         try {
             ps=con.prepareStatement("SELECT * from recruiter where email=?");
             ps.setString(1, email);
-
             rs=ps.executeQuery();
             if(rs.next())
                 return 1;
