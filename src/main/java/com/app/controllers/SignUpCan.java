@@ -1,12 +1,8 @@
 package com.app.controllers;
 
 import com.app.dao.CandidateDAO;
-import com.app.dao.CandidateDaoImp;
-import com.app.dao.DAOFactory;
-import com.app.dao.RecruiterDaoImp;
 import com.app.extra.Strings;
 import com.app.models.Candidate;
-import com.app.models.Recruiter;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

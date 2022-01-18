@@ -53,7 +53,10 @@ public class CandidateDaoImp implements CandidateDAO {
                 candidate.setPasswordCan(rs.getString(5));
                 candidate.setSexeCan(rs.getString(6));
                 candidate.setTelephoneCan(rs.getString(7));
-
+                candidate.setImage(rs.getString(8));
+                candidate.setDescription(rs.getString(9));
+                candidate.setSchool(rs.getString(10));
+                candidate.setLocation(rs.getString(11));
                 return candidate;
             }else {
                 return null;
@@ -94,6 +97,22 @@ public class CandidateDaoImp implements CandidateDAO {
             ps=con.prepareStatement("SELECT * from candidate where email=?");
             ps.setString(1, email);
 
+            rs=ps.executeQuery();
+            if(rs.next())
+                return 1;
+            else
+                return 0;
+        }catch(Exception e) {
+            System.out.println("connexion error");
+        }
+
+        return -1;
+    }
+
+    public int hasPost(int id){
+        try {
+            ps=con.prepareStatement("SELECT * from candidature_post where candidate_id=?");
+            ps.setInt(1, id);
             rs=ps.executeQuery();
             if(rs.next())
                 return 1;
