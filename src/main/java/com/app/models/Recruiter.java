@@ -11,11 +11,17 @@ public class Recruiter {
     private String sexeRec;
     private String entrepriseRec;
     private int experienceRec;
+    private String descriptionRec;
+    private String img;
+    private String contactEmail;
+    private String linkedUrl;
+    private String facebookUrl;
+    private String twitterUrl;
 
     public Recruiter() {
     }
 
-    public Recruiter(int idRec, String firstNameRec, String lastNameRec, String emailRec, String passwordRec, String sexeRec, String entrepriseRec, int experienceRec) {
+    public Recruiter(int idRec, String firstNameRec, String lastNameRec, String emailRec, String passwordRec, String sexeRec, String entrepriseRec, int experienceRec, String descriptionRec, String img, String contactEmail, String linkedUrl, String facebookUrl, String twitterUrl) {
         this.idRec = idRec;
         this.firstNameRec = firstNameRec;
         this.lastNameRec = lastNameRec;
@@ -24,6 +30,60 @@ public class Recruiter {
         this.sexeRec = sexeRec;
         this.entrepriseRec = entrepriseRec;
         this.experienceRec = experienceRec;
+        this.descriptionRec = descriptionRec;
+        this.img = img;
+        this.contactEmail = contactEmail;
+        this.linkedUrl = linkedUrl;
+        this.facebookUrl = facebookUrl;
+        this.twitterUrl = twitterUrl;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getLinkedUrl() {
+        return linkedUrl;
+    }
+
+    public void setLinkedUrl(String linkedUrl) {
+        this.linkedUrl = linkedUrl;
+    }
+
+    public String getFacebookUrl() {
+        return facebookUrl;
+    }
+
+    public void setFacebookUrl(String facebookUrl) {
+        this.facebookUrl = facebookUrl;
+    }
+
+    public String getTwitterUrl() {
+        return twitterUrl;
+    }
+
+    public void setTwitterUrl(String twitterUrl) {
+        this.twitterUrl = twitterUrl;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getDescriptionRec() {
+        return descriptionRec;
+    }
+
+    public void setDescriptionRec(String descriptionRec) {
+        this.descriptionRec = descriptionRec;
     }
 
     public int getIdRec() {

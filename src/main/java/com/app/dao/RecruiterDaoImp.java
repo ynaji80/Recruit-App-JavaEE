@@ -1,11 +1,15 @@
 package com.app.dao;
 
+import com.app.models.Candidate;
+import com.app.models.Category;
 import com.app.models.Recruiter;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecruiterDaoImp implements RecruiterDAO{
 
@@ -52,8 +56,8 @@ public class RecruiterDaoImp implements RecruiterDAO{
                 recruiter.setLastNameRec(rs.getString(3));
                 recruiter.setEmailRec(rs.getString(4));
                 recruiter.setPasswordRec(rs.getString(5));
-                recruiter.setSexeRec(rs.getString(6));
-                recruiter.setEntrepriseRec(rs.getString(7));
+                recruiter.setEntrepriseRec(rs.getString(6));
+                recruiter.setSexeRec(rs.getString(7));
                 recruiter.setExperienceRec(rs.getInt(8));
 
                 return recruiter;
@@ -106,4 +110,64 @@ public class RecruiterDaoImp implements RecruiterDAO{
 
         return -1;
     }
+
+    public Recruiter getRecruiterById(int idRecuiter){
+        try {
+            query ="SELECT * from recruiter where recruiter_id=?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1,idRecuiter);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                Recruiter recruiter = new Recruiter();
+                recruiter.setIdRec(rs.getInt(1));
+                recruiter.setFirstNameRec(rs.getString(2));
+                recruiter.setLastNameRec(rs.getString(3));
+                recruiter.setEmailRec(rs.getString(4));
+                recruiter.setPasswordRec(rs.getString(5));
+                recruiter.setEntrepriseRec(rs.getString(6));
+                recruiter.setSexeRec(rs.getString(7));
+                recruiter.setExperienceRec(rs.getInt(8));
+                recruiter.setDescriptionRec(rs.getString(9));
+                return recruiter;
+            }else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return null;
+    }
+
+    @Override
+    public List<Recruiter> getAllRecruiters() {
+        query = "SELECT * from recruiter";
+        try {
+            ps = con.prepareStatement(query);
+            rs = ps.executeQuery();
+            List<Recruiter> recruiters = new ArrayList<Recruiter>();
+            while (rs.next()) {
+                Recruiter recruiter = new Recruiter(
+                rs.getInt(1),
+                rs.getString(2),
+                rs.getString(3),
+                rs.getString(4),
+                rs.getString(5),
+                rs.getString(6),
+                rs.getString(7),
+                rs.getInt(8),
+                rs.getString(9),
+                rs.getString(10),
+                rs.getString(11),
+                rs.getString(12),
+                rs.getString(13),
+                rs.getString(14));
+                recruiters.add(recruiter);
+            }
+            return recruiters;
+        } catch (Exception e) {
+            System.out.println("Connection Error" + e);
+        }
+        return null;
+    }
+
 }

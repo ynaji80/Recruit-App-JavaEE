@@ -25,14 +25,14 @@ public class UpdatePost extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         int idPost = Integer.parseInt(request.getParameter("idPost"));
-        String postDescription = (String) request.getParameter("postDescription");
-        int idCategory = Integer.parseInt(request.getParameter("idCategory"));
+        String postDescription = (String) request.getParameter("post");
+        int idCategory = Integer.parseInt(request.getParameter("category"));
         Part VideoPart = request.getPart("video");
 
         System.out.println("part is :"+VideoPart);
         String videoFileName= extractFileName(VideoPart);
         System.out.println(videoFileName);
-        String savePath= "C:\\Users\\user\\IdeaProjects\\recruit-app\\src\\main\\webapp\\videos"+ File.separator + videoFileName;
+        String savePath= "C:\\Users\\najiy\\IdeaProjects\\recruit-app\\src\\main\\webapp\\videos"+ File.separator + videoFileName;
         System.out.println(savePath);
         File fileSaveDir= new File(savePath);
         VideoPart.write(savePath+File.separator);
@@ -51,7 +51,7 @@ public class UpdatePost extends HttpServlet {
         post.setVideo(savePath);
         post.setIdCategory(idCategory);
         postDAO.updatePost(post);
-        response.sendRedirect("Home.jsp");
+        response.sendRedirect("GetAllPost");
 
     }
     private String extractFileName(Part part) {

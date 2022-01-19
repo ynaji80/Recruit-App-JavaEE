@@ -53,10 +53,11 @@ public class CandidateDaoImp implements CandidateDAO {
                 candidate.setPasswordCan(rs.getString(5));
                 candidate.setSexeCan(rs.getString(6));
                 candidate.setTelephoneCan(rs.getString(7));
-                candidate.setImage(rs.getString(8));
-                candidate.setDescription(rs.getString(9));
-                candidate.setSchool(rs.getString(10));
-                candidate.setLocation(rs.getString(11));
+                candidate.setFormationCan(rs.getString(8));
+                candidate.setImage(rs.getString(9));
+                candidate.setDescription(rs.getString(10));
+                candidate.setSchool(rs.getString(11));
+                candidate.setLocation(rs.getString(12));
                 return candidate;
             }else {
                 return null;
@@ -70,7 +71,7 @@ public class CandidateDaoImp implements CandidateDAO {
     @Override
     public int addCandidate(Candidate candidate) {
         try {
-            query="INSERT INTO candidate Values (null, ?, ?, ?, ?, ?, ?, ?)";
+            query="INSERT INTO candidate Values (null, ?, ?, ?, ?, ?, ?, ?, null,null,null,null)";
             ps=con.prepareStatement(query);
             ps.setString(1,candidate.getFirstNameCan());
             ps.setString(2,candidate.getLastNameCan());
@@ -124,4 +125,61 @@ public class CandidateDaoImp implements CandidateDAO {
 
         return -1;
     }
+
+    public Candidate getCandidateById(int idCandidat){
+        try {
+            query ="SELECT * from candidate where candidate_id=?";
+            ps = con.prepareStatement(query);
+            ps.setInt(1,idCandidat);
+            rs = ps.executeQuery();
+            if(rs.next()) {
+                Candidate candidate = new Candidate();
+                candidate.setIdCan(rs.getInt(1));
+                candidate.setFirstNameCan(rs.getString(2));
+                candidate.setLastNameCan(rs.getString(3));
+                candidate.setEmailCan(rs.getString(4));
+                candidate.setPasswordCan(rs.getString(5));
+                candidate.setSexeCan(rs.getString(6));
+                candidate.setTelephoneCan(rs.getString(7));
+                candidate.setFormationCan(rs.getString(8));
+                candidate.setImage(rs.getString(9));
+                candidate.setDescription(rs.getString(10));
+                candidate.setSchool(rs.getString(11));
+                candidate.setLocation(rs.getString(12));
+                return candidate;
+            }else {
+                return null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+        return null;
+    }
+
+    public int updateCandidate(Candidate candidate){
+        query="UPDATE candidate SET password=?, formation=?, img=?, description=?, school=?, location=? WHERE candidate_id=?";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1,candidate.getPasswordCan());
+            ps.setString(2,candidate.getFormationCan());
+            ps.setString(3,candidate.getImage());
+            ps.setString(4,candidate.getDescription());
+            ps.setString(5,candidate.getSchool());
+            ps.setString(6,candidate.getLocation());
+            ps.setInt(7,candidate.getIdCan());
+            int i =ps.executeUpdate();
+            if(i>0){
+                return 1;
+            }
+            else{
+                return 0;
+            }
+        }
+        catch (Exception e){
+            System.out.println("Connection Error"+e);
+        }
+        return -1;
+    }
+
+
 }
