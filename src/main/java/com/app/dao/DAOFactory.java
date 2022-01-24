@@ -79,5 +79,8 @@ public class DAOFactory {
     public CategoryDAO getCategoryDAO() throws SQLException{
         return new CategoryDaoImp(this,this.getConnection());
     }
+    public LikesDAO getLikesDao() throws SQLException{
+        return new LikesDaoImp(this,this.getConnection());
+    }
 
 }

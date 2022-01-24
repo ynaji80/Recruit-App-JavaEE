@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,9 +34,11 @@ public class UpdatePost extends HttpServlet {
         String videoFileName= extractFileName(VideoPart);
         System.out.println(videoFileName);
         String savePath= "C:\\Users\\najiy\\IdeaProjects\\recruit-app\\src\\main\\webapp\\videos"+ File.separator + videoFileName;
-        System.out.println(savePath);
+        String savePath2="C:\\Users\\najiy\\IdeaProjects\\recruit-app\\target\\recruit-app-1.0-SNAPSHOT\\videos"+ File.separator + videoFileName;
         File fileSaveDir= new File(savePath);
         VideoPart.write(savePath+File.separator);
+        File fileSaveDir2= new File(savePath2);
+        copyFile(fileSaveDir, fileSaveDir2);
 
         PostDAO postDAO =null;
         try{
@@ -63,5 +66,8 @@ public class UpdatePost extends HttpServlet {
             }
         }
         return "";
+    }
+    private static void copyFile(File source, File dest) throws IOException {
+        Files.copy(source.toPath(), dest.toPath());
     }
 }

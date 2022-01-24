@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.SQLException;
 
 @WebServlet(name = "UpdateProfileCan", value = "/UpdateProfileCan")
@@ -35,9 +36,11 @@ public class UpdateProfileCan extends HttpServlet {
         String imageFileName= extractFileName(ImgPart);
         System.out.println(imageFileName);
         String savePath= "C:\\Users\\najiy\\IdeaProjects\\recruit-app\\src\\main\\webapp\\img"+ File.separator + imageFileName;
-        System.out.println(savePath);
+        String savePath2= "C:\\Users\\najiy\\IdeaProjects\\recruit-app\\target\\recruit-app-1.0-SNAPSHOT\\img"+ File.separator + imageFileName;
         File fileSaveDir= new File(savePath);
         ImgPart.write(savePath+File.separator);
+        File fileSaveDir2= new File(savePath2);
+        copyFile(fileSaveDir, fileSaveDir2);
 
         CandidateDAO candidateDAO =null;
         try{
@@ -68,5 +71,8 @@ public class UpdateProfileCan extends HttpServlet {
             }
         }
         return "";
+    }
+    private static void copyFile(File source, File dest) throws IOException {
+        Files.copy(source.toPath(), dest.toPath());
     }
 }

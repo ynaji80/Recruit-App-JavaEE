@@ -32,11 +32,6 @@ const categories = [
      }
 ];
 
-// {
-//     id: 5,
-//         img: "https://media.istockphoto.com/photos/putting-in-the-dedication-to-build-her-dreams-picture-id1298550035?b=1&k=20&m=1298550035&s=170667a&w=0&h=xQmu1P5uZB3sNuqjM2CfVjLhrWhijYvy4C2v_W2wfSk=",
-//     name: "Engineering"
-// },
 const categories1 = categories.map(iterate);
 function iterate(value, index, array) {
     let x = `<div class='cursor-pointer h-60 w-80 flex flex-col justify-center items-center rounded-lg mb-8 hover:shadow-xl  ring-1 ring-gray-300 ' >

@@ -1,6 +1,6 @@
 package com.app.dao;
 
-
+import com.app.models.Candidate;
 import com.app.models.Recruiter;
 
 import java.util.List;
@@ -12,4 +12,5 @@ public interface RecruiterDAO {
     public int emailExist(String email);
     public Recruiter getRecruiterById(int idRecuiter);
     public List<Recruiter> getAllRecruiters();
+    public int updateRecruiter(Recruiter recruiter);
 }
